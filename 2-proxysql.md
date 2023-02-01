@@ -2,15 +2,17 @@
 
 ProxySQL is a high-performance, open-source proxy for MySQL databases. It acts as a middleman between your application and your database, routing queries and managing connections to ensure optimal performance and security.
 
+(TODO: elaborate on use cases)
+
 ## Architecture
 ![Design](proxysql.png)
 We have two nodes, A and B, where a MySQL master is running on node A and a MySQL slave on node B. In addition, there are two additional processes, which are located on node A but could also be on separate nodes:
 
-1. ProxySQL Admin: This process is responsible for configuring ProxySQL and runs on port 6032. It communicates with the targeted SQL instances.
-2. ProxySQL Client: Client queries are routed to port 6033, where ProxySQL redirects traffic to one of the nodes based on a set of rules, such as read-write splitting or user-based routing.
+1. `ProxySQL Admin`: This process is responsible for configuring ProxySQL and runs on port 6032. It communicates with the targeted MySQL instances.
+2. `ProxySQL Client`: Client queries are routed to port 6033, where ProxySQL redirects traffic to one of the nodes based on a set of rules, such as read-write splitting or user-based routing.
 
 ## Installation
-The replication must already be set up, as outlined in the document `1-setup-replication.md`, which is one of the necessary requirements.
+The replication must already be set up, as outlined in the document `1-setup-replication.md`, which is one of the necessary requirements. Next, the following steps should be performed.
 
 ### 1. Download ProxySQL
 Retrieve ProxySQL package: \
@@ -42,8 +44,8 @@ With the following example, we redirect all traffic that starts with `SELECT COU
 
 `INSERT INTO mysql_query_rules (rule_id, active, match_digest, destination_hostgroup, apply) VALUES (1, 1, '^SELECT COUNT.*$', 3, 1);`
 
-# Example query in the ProxySQL client
-See which host is used for the next query:
+### Example query in the ProxySQL client
+See which host is used for the MySQL query:
 
 `mysql -u playgrounduser -pplaygroundpassword -h 127.0.0.1 -P 6033 --prompt='ProxySQLClient> ' -e 'SELECT @@hostname;'`
 
