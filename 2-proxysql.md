@@ -53,7 +53,7 @@ With the following example, we redirect all traffic that starts with `SELECT COU
 
 `INSERT INTO mysql_query_rules (rule_id, active, match_digest, destination_hostgroup, apply) VALUES (1, 1, '^SELECT COUNT.*$', 3, 1);`
 
-### Example query in the ProxySQL client
+### Example query to perform on the ProxySQL Client
 See which host is used for the MySQL query:
 
 `mysql -u playgrounduser -pplaygroundpassword -h 127.0.0.1 -P 6033 --prompt='ProxySQLClient> ' -e 'SELECT @@hostname;'`
