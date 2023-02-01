@@ -3,17 +3,15 @@
 Issues with the setup of `1-setup-replication.md` are described below.
 
 ### 1. Writes on Slave Nodes
-It may seem possible to perform writes on the slave nodes (node B), however, these changes will not be reflected on the master. To ensure the consistency of data, it is crucial that all writes are directed to the master, while reads can be performed on either node. To avoid confusion for clients, it might be beneficial to have an extra layer for better control.
+It is possible to perform writes on the slave nodes (node B), however, these changes will not be reflected on the master. To ensure the consistency of data, it is crucial that all writes are performed on the master, while reads can be performed on either node. To avoid confusion for clients, it might be beneficial to have an extra layer for better control.
 
 ### 2. Unequal Traffic Distribution
-In case of a read query that could be executed on more than one MySQL slaves, different clients may connect to the same instance, causing an unequal distribution of traffic and resulting in performance issues. To address this, there is a need for a load balancing layer that can distribute the queries, for example in a round-robin fashion.
+In case of a read query that could be executed on more than one slaves, different clients may connect to the same instance, causing an unequal distribution of traffic and resulting in performance issues. To address this, there is a need for a load balancing layer that can distribute the queries, for example in a round-robin fashion.
 
 Another example, if there is a large amount of operational data that data analysts want to analyze, performing read queries on the master (node A) might not be feasible as it may slow down new writes and reads of production queries. To prevent this, it is necessary to have the capability to redirect specific queries or users to a specific group of instances.
 
-## Proposed solution: ProxySQL
+### Proposed solution: ProxySQL
 ProxySQL is a high-performance, open-source proxy for MySQL databases. It acts as a middleman between your application and your database, routing queries and managing connections to ensure optimal performance and security.
-
-(TODO: elaborate on use cases)
 
 ## Architecture
 ![Design](proxysql.png)
@@ -36,11 +34,11 @@ Start ProxySQL: \
 `sudo systemctl start proxysql`
 
 ### 2. Configure ProxySQL
-Follow step 2 until step 8 from https://www.digitalocean.com/community/tutorials/how-to-use-proxysql-as-a-load-balancer-for-mysql-on-ubuntu-16-04 (TODO: elaborate on steps)
+Follow step 2 until step 8 [here](https://www.digitalocean.com/community/tutorials/how-to-use-proxysql-as-a-load-balancer-for-mysql-on-ubuntu-16-04) (TODO: elaborate on steps)
 
 Some important notes:
 - The initial password of the ProxySQLAdmin client is 'admin'
-- When creating the monitor/playground user, use native_password instead of caching_ (temporary solution)
+- When creating the monitor/playground user, use `native_password` instead of `caching_` (temporary solution)
 
 ## Useful commands
 
