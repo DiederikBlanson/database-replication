@@ -1,5 +1,16 @@
 # ProxySQL
 
+Issues with the setup of `1-setup-replication.md` are described below.
+
+### 1. Writes on Slave Nodes
+It may seem possible to perform writes on the slave nodes (node B), however, these changes will not be reflected on the master. To ensure the consistency of data, it is crucial that all writes are directed to the master, while reads can be performed on either node. To avoid confusion for clients, it might be beneficial to have an extra layer for better control.
+
+### 2. Unequal Traffic Distribution
+In case of a read query that could be executed on more than one MySQL slaves, different clients may connect to the same instance, causing an unequal distribution of traffic and resulting in performance issues. To address this, there is a need for a load balancing layer that can distribute the queries, for example in a round-robin fashion.
+
+Another example, if there is a large amount of operational data that data analysts want to analyze, performing read queries on the master (node A) might not be feasible as it may slow down new writes and reads of production queries. To prevent this, it is necessary to have the capability to redirect specific queries or users to a specific group of instances.
+
+## Proposed solution: ProxySQL
 ProxySQL is a high-performance, open-source proxy for MySQL databases. It acts as a middleman between your application and your database, routing queries and managing connections to ensure optimal performance and security.
 
 (TODO: elaborate on use cases)
@@ -54,3 +65,5 @@ See which host is used for the MySQL query:
 - Issue read-only https://github.com/sysown/proxysql/issues/2074
 - ProxySQL https://proxysql.com/documentation/
 - Installation ProxySQL https://www.arubacloud.com/tutorial/how-to-optimize-mysql-queries-with-proxysql-caching-on-ubuntu-20-04.aspx
+- Read-Write splitting https://proxysql.com/documentation/proxysql-read-write-split-howto/
+    1. Set read_only in the reader node"
