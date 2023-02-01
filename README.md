@@ -1,4 +1,4 @@
-# Master-Master or Master-Slave replication
+# MySQL Replication
 
 The purpose of this repository is to demonstrate the ease of implementing database replication in a MySQL environment on an Ubuntu 20.04 server. While this setup is not suitable for production due to limitations such as node failure, it provides an opportunity to experiment and explore the possibilities of replication.
 
