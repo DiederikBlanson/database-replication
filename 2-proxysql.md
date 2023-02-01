@@ -60,8 +60,8 @@ See which host is used for the MySQL query:
 
 
 ## Sources
-- Issue read-only https://github.com/sysown/proxysql/issues/2074
-- ProxySQL https://proxysql.com/documentation/
-- Installation ProxySQL https://www.arubacloud.com/tutorial/how-to-optimize-mysql-queries-with-proxysql-caching-on-ubuntu-20-04.aspx
-- Read-Write splitting https://proxysql.com/documentation/proxysql-read-write-split-howto/
-    1. Set read_only in the reader node"
+- [Issue read-only](https://github.com/sysown/proxysql/issues/2074)
+- [ProxySQL](https://proxysql.com/documentation/)
+- [Installation ProxySQL](https://www.arubacloud.com/tutorial/how-to-optimize-mysql-queries-with-proxysql-caching-on-ubuntu-20-04.aspx)
+- [Read-Write splitting](https://proxysql.com/documentation/proxysql-read-write-split-howto/)
+    1. Set `read_only` in the reader node
