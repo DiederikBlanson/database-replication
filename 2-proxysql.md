@@ -21,7 +21,7 @@ We have two nodes, A and B, where a MySQL master is running on node A and a MySQ
 2. `ProxySQL Client`: Client queries are routed to port 6033, where ProxySQL redirects traffic to one of the nodes based on a set of rules, such as read-write splitting or user-based routing.
 
 ## Installation
-The replication must already be set up, as outlined in the document `1-setup-replication.md`, which is one of the necessary requirements. Next, the following steps should be performed.
+The replication must already be set up, as outlined in the document `1-setup-replication.md`. Next, the following steps should be performed.
 
 ### 1. Download ProxySQL
 Retrieve ProxySQL package: \
